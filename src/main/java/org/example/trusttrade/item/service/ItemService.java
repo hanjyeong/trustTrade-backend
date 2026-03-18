@@ -3,7 +3,6 @@ package org.example.trusttrade.item.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.trusttrade.auction.repository.AuctionRepository;
-import org.example.trusttrade.global.error.NotAllowUserType;
 import org.example.trusttrade.item.domain.Category;
 import org.example.trusttrade.item.domain.Item;
 import org.example.trusttrade.item.domain.ItemCategory;
@@ -14,7 +13,7 @@ import org.example.trusttrade.item.repository.ItemCategoryRepository;
 import org.example.trusttrade.item.repository.ItemImageRepository;
 import org.example.trusttrade.item.repository.ProductRepository;
 import org.example.trusttrade.login.domain.User;
-import org.example.trusttrade.login.repository.UserRepository;
+import org.example.trusttrade.login.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +31,7 @@ public class ItemService {
     private final CategoryService categoryService;
     private final ProductRepository productRepository;
     private final AuctionRepository auctionRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     // 카테고리로 물품 조회
     public List<ItemResponseDto> findByCategoryAndType(Long categoryId, ItemType itemType) {
@@ -84,13 +83,7 @@ public class ItemService {
 
     // 판매자 아이디로 상품 조회
     public List<ItemResponseDto> findBySellerAccountAndType(String sellerAccount, ItemType itemType) {
-        User seller = userRepository.findByUserAccount(sellerAccount)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 판매자 계정입니다."));
-
-        if (seller.getMemberType() != User.MemberType.BUSINESS) {
-            throw new NotAllowUserType("일반 회원은 물건을 등록 할 수 없습니다");
-        }
-
+        User seller = userService.validateBusinessUserByAccount(sellerAccount);
         return findItemsBySeller(seller.getId(), itemType);
     }
 

@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.trusttrade.global.error.AddressNotFoundException;
+import org.example.trusttrade.global.error.NotAllowUserType;
 import org.example.trusttrade.item.domain.products.ProductLocation;
 import org.example.trusttrade.item.dto.request.GeoPoint;
 import org.example.trusttrade.item.dto.request.LogInRequest;
@@ -45,10 +46,25 @@ public class UserService {
 
         if (user.getMemberType() != User.MemberType.BUSINESS) {
             log.warn("권한 검증 실패: userId={}, memberType={} (BUSINESS 아님)", userId, user.getMemberType());
-            throw new IllegalStateException("Business 회원만 상품 등록이 가능합니다.");
+            throw new NotAllowUserType("사업자 회원만 상품 등록이 가능합니다.");
         }
 
         log.debug("권한 검증 통과: userId={} is BUSINESS", userId);
+        return user;
+    }
+
+    public User validateBusinessUserByAccount(String account) {
+        log.debug("validateBusinessUserByAccount 시작: account={}", account);
+
+        User user = userRepository.findByUserAccount(account)
+                .orElseThrow(() -> new EntityNotFoundException("회원 정보를 찾을 수 없습니다."));
+
+        if (user.getMemberType() != User.MemberType.BUSINESS) {
+            log.warn("권한 검증 실패: account={}, memberType={} (BUSINESS 아님)", account, user.getMemberType());
+            throw new NotAllowUserType("사업자 회원만 판매자 계정 기준 조회가 가능합니다.");
+        }
+
+        log.debug("권한 검증 통과: account={} is BUSINESS", account);
         return user;
     }
 
