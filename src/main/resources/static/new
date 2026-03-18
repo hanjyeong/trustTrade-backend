@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>두 개의 주사위</title>
+    <script>
+        // 두 개의 주사위를 굴려서 화면에 표시하는 함수
+        function rollTwoDices() {
+            // 1 ~ 6 사이의 랜덤 정수 만들기
+            const dice1 = Math.floor(Math.random() * 6) + 1;
+            const dice2 = Math.floor(Math.random() * 6) + 1;
+
+            // HTML 요소에 표시
+            document.getElementById("dice1").textContent = dice1;
+            document.getElementById("dice2").textContent = dice2;
+
+            // 합도 같이 보여주고 싶다면
+            document.getElementById("sum").textContent = dice1 + dice2;
+        }
+    </script>
+</head>
+<body>
+    <h1>두 개의 주사위 굴리기</h1>
+
+    <p>주사위 1: <span id="dice1">-</span></p>
+    <p>주사위 2: <span id="dice2">-</span></p>
+    <p>합계: <span id="sum">-</span></p>
+
+    <button onclick="rollTwoDices()">주사위 굴리기</button>
+</body>
+</html>
