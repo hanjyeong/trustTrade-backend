@@ -49,33 +49,8 @@ public class ItemService {
                 imageUrls == null ? 0 : imageUrls.size(),
                 categoryIds == null ? 0 : categoryIds.size());
 
-        // 1) 이미지 저장
-        if (imageUrls != null && !imageUrls.isEmpty()) {
-            List<ItemImage> images = ItemImage.fromDto(item, imageUrls);
-            log.debug("이미지 변환 완료: itemId={}, imagesToSave={}", item.getId(), images.size());
-
-            itemImageRepository.saveAll(images);
-            log.debug("이미지 저장 완료: itemId={}, savedImages={}", item.getId(), images.size());
-        } else {
-            log.debug("저장할 이미지 없음: itemId={}", item.getId());
-        }
-
-        // 2) 카테고리 매핑
-        if (categoryIds != null && !categoryIds.isEmpty()) {
-            List<Category> categories = categoryService.getValidCategories(categoryIds);
-            List<Long> categoryIdList = categories.stream()
-                    .map(Category::getId)
-                    .toList();
-            log.debug("유효 카테고리 조회 완료: itemId={}, categories={}", item.getId(), categoryIdList);
-
-            List<ItemCategory> mappings = ItemCategory.createMappings(item, categories);
-            log.debug("ItemCategory 매핑 생성 완료: itemId={}, mappingsCount={}", item.getId(), mappings.size());
-
-            itemCategoryRepository.saveAll(mappings);
-            log.debug("카테고리 매핑 저장 완료: itemId={}, savedMappings={}", item.getId(), mappings.size());
-        } else {
-            log.debug("매핑할 카테고리 없음: itemId={}", item.getId());
-        }
+        saveImages(item, imageUrls);
+        saveCategories(item, categoryIds);
 
         log.debug("saveItemDetails 완료: itemId={}", item.getId());
     }
@@ -91,6 +66,38 @@ public class ItemService {
     // 물품 이름으로 상품 조회
     public List<ItemResponseDto> findByItemTitleAndType(String title, ItemType itemType) {
         return findItemsByTitle(title, itemType);
+    }
+
+    private void saveImages(Item item, List<String> imageUrls) {
+        if (imageUrls == null || imageUrls.isEmpty()) {
+            log.debug("저장할 이미지 없음: itemId={}", item.getId());
+            return;
+        }
+
+        List<ItemImage> images = ItemImage.fromDto(item, imageUrls);
+        log.debug("이미지 변환 완료: itemId={}, imagesToSave={}", item.getId(), images.size());
+
+        itemImageRepository.saveAll(images);
+        log.debug("이미지 저장 완료: itemId={}, savedImages={}", item.getId(), images.size());
+    }
+
+    private void saveCategories(Item item, List<Integer> categoryIds) {
+        if (categoryIds == null || categoryIds.isEmpty()) {
+            log.debug("매핑할 카테고리 없음: itemId={}", item.getId());
+            return;
+        }
+
+        List<Category> categories = categoryService.getValidCategories(categoryIds);
+        List<Long> categoryIdList = categories.stream()
+                .map(Category::getId)
+                .toList();
+        log.debug("유효 카테고리 조회 완료: itemId={}, categories={}", item.getId(), categoryIdList);
+
+        List<ItemCategory> mappings = ItemCategory.createMappings(item, categories);
+        log.debug("ItemCategory 매핑 생성 완료: itemId={}, mappingsCount={}", item.getId(), mappings.size());
+
+        itemCategoryRepository.saveAll(mappings);
+        log.debug("카테고리 매핑 저장 완료: itemId={}, savedMappings={}", item.getId(), mappings.size());
     }
 
     private List<ItemResponseDto> findItemsBySeller(UUID sellerId, ItemType itemType) {
