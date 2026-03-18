@@ -16,22 +16,29 @@ public class MapService {
 
     // 주소를 위도,경도 값으로 변환하는 메서드
     public GeoPoint addressToGeocode(String address){
+        validateAddress(address);
+        KakaoApiResponseDto response = kakaoAddressSearchService.requestAddressSearch(address);
+        DocumentDto document = extractFirstDocument(response, address);
+        return toGeoPoint(document);
+    }
+
+    private void validateAddress(String address) {
         if (!StringUtils.hasText(address)) {
             throw new IllegalArgumentException("주소는 비어 있을 수 없습니다.");
         }
+    }
 
-        KakaoApiResponseDto kakao = kakaoAddressSearchService.requestAddressSearch(address);
-        if (kakao == null || kakao.getDocumentList() == null || kakao.getDocumentList().isEmpty()) {
+    private DocumentDto extractFirstDocument(KakaoApiResponseDto response, String address) {
+        if (response == null || response.getDocumentList() == null || response.getDocumentList().isEmpty()) {
             throw new AddressNotFoundException("주소를 찾을 수 없습니다: " + address);
         }
 
-        DocumentDto doc = kakao.getDocumentList().getFirst();
-
-        double lat = kakaoAddressSearchService.toDouble(doc.getLatitude());
-        double lng = kakaoAddressSearchService.toDouble(doc.getLongitude());
-
-        return new GeoPoint(lat, lng);
+        return response.getDocumentList().getFirst();
     }
 
-
+    private GeoPoint toGeoPoint(DocumentDto document) {
+        double lat = kakaoAddressSearchService.toDouble(document.getLatitude());
+        double lng = kakaoAddressSearchService.toDouble(document.getLongitude());
+        return new GeoPoint(lat, lng);
+    }
 }
