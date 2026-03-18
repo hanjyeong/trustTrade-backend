@@ -35,9 +35,8 @@ public class ItemService {
     private final UserRepository userRepository;
 
     // 카테고리로 물품 조회
-    public List<ItemResponseDto> findByCategoryAndType(Long categoryId, String itemType) {
-        ItemType requestedType = ItemType.from(itemType);
-        return switch (requestedType) {
+    public List<ItemResponseDto> findByCategoryAndType(Long categoryId, ItemType itemType) {
+        return switch (itemType) {
             case PRODUCT -> mapToResponses(productRepository.findByCategoryId(categoryId));
             case AUCTION -> mapToResponses(auctionRepository.findByCategoryId(categoryId));
         };
@@ -84,9 +83,7 @@ public class ItemService {
 
 
     // 판매자 아이디로 상품 조회
-    public List<ItemResponseDto> findBySellerAccountAndType(String sellerAccount, String itemType) {
-        ItemType requestedType = ItemType.from(itemType);
-
+    public List<ItemResponseDto> findBySellerAccountAndType(String sellerAccount, ItemType itemType) {
         User seller = userRepository.findByUserAccount(sellerAccount)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 판매자 계정입니다."));
 
@@ -94,13 +91,13 @@ public class ItemService {
             throw new NotAllowUserType("일반 회원은 물건을 등록 할 수 없습니다");
         }
 
-        return findItemsBySeller(seller.getId(), requestedType);
+        return findItemsBySeller(seller.getId(), itemType);
     }
 
 
     // 물품 이름으로 상품 조회
-    public List<ItemResponseDto> findByItemTitleAndType(String title, String itemType) {
-        return findItemsByTitle(title, ItemType.from(itemType));
+    public List<ItemResponseDto> findByItemTitleAndType(String title, ItemType itemType) {
+        return findItemsByTitle(title, itemType);
     }
 
     private List<ItemResponseDto> findItemsBySeller(UUID sellerId, ItemType itemType) {
