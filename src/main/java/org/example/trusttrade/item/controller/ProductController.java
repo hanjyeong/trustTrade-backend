@@ -3,6 +3,7 @@ package org.example.trusttrade.item.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.trusttrade.global.dto.MessageResponse;
 import org.example.trusttrade.item.dto.response.ItemResponseDto;
 import org.example.trusttrade.item.service.ProductService;
 import org.example.trusttrade.login.domain.User;
@@ -28,12 +29,13 @@ public class ProductController {
 
     // 일반 물품 등록
     @PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> registerBasicProduct(
+    public ResponseEntity<MessageResponse> registerBasicProduct(
             @RequestPart("item") @Valid BasicItemDto basicItemDto,
             @RequestPart(value = "images", required = false) List<MultipartFile> images) {
         User seller = userService.validateBusinessUser(basicItemDto.getSellerId());
         productService.registerBasicItem(basicItemDto, seller, images);
-        return ResponseEntity.status(HttpStatus.CREATED).body("일반 물품이 성공적으로 등록되었습니다.");
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new MessageResponse("일반 물품이 성공적으로 등록되었습니다."));
     }
 
     // 일반 물품 전체 조회

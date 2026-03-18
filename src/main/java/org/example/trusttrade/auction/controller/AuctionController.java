@@ -8,8 +8,7 @@ import org.example.trusttrade.auction.dto.AuctionDetailsResponse;
 import org.example.trusttrade.auction.dto.AuctionItemDto;
 import org.example.trusttrade.auction.dto.AuctionResDto;
 import org.example.trusttrade.auction.service.AuctionService;
-import org.example.trusttrade.item.dto.response.ItemResponseDto;
-import org.example.trusttrade.item.service.ItemService;
+import org.example.trusttrade.global.dto.MessageResponse;
 import org.example.trusttrade.login.domain.User;
 import org.example.trusttrade.login.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -28,12 +27,11 @@ import java.util.UUID;
 public class AuctionController {
 
     private final AuctionService auctionService;
-    private final ItemService itemService;
     private final UserService userService;
 
     //경매 조회 by 판매자
     @GetMapping("/{sellerId}/list")
-    public ResponseEntity<?> auctionsBySellerId(@PathVariable("sellerId") UUID sellerId) {
+    public ResponseEntity<List<AuctionResDto>> auctionsBySellerId(@PathVariable("sellerId") UUID sellerId) {
         List<Auction> auctions = auctionService.getAuctionsBySeller(sellerId);
 
         List<AuctionResDto> response = auctions.stream()
@@ -65,33 +63,13 @@ public class AuctionController {
 
     // 경매 물품 등록
     @PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> registerAuction(
+    public ResponseEntity<MessageResponse> registerAuction(
             @RequestPart("auction_item") @Valid AuctionItemDto auctionItemDto,
             @RequestPart(value = "images", required = false) List<MultipartFile> images
     ) {
         User seller = userService.validateBusinessUser(auctionItemDto.getSellerId());
         auctionService.registerAuctionItem(auctionItemDto, seller, images);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("경매 물품이 성공적으로 등록되었습니다.");
-    }
-
-    // 카테고리별 조회
-    @GetMapping("/category/list")
-    public ResponseEntity<List<ItemResponseDto>> getItemsCategory(
-            @RequestParam Long categoryId,
-            @RequestParam String itemType
-    ) {
-        List<ItemResponseDto> items = itemService.findByCategoryAndType(categoryId, itemType);
-        return ResponseEntity.ok(items);
-    }
-
-    // 판매자 이름별 조회
-    @GetMapping("/seller/list")
-    public ResponseEntity<List<ItemResponseDto>> getItemsSellerAccount(
-            @RequestParam String sellerAccount,
-            @RequestParam String itemType) {
-
-        List<ItemResponseDto> items = itemService.findBySellerAccountAndType(sellerAccount, itemType);
-        return ResponseEntity.ok(items);
+                .body(new MessageResponse("경매 물품이 성공적으로 등록되었습니다."));
     }
 }
