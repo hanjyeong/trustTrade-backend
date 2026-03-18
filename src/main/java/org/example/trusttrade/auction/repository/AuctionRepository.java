@@ -2,6 +2,7 @@ package org.example.trusttrade.auction.repository;
 
 import org.example.trusttrade.auction.domain.Auction;
 import org.example.trusttrade.auction.domain.AuctionStatus;
+import org.example.trusttrade.item.domain.ItemCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -28,6 +29,14 @@ public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
     // 판매자(UUID)로 이 사람이 올린 경매만
     List<Auction> findByUser_Id(UUID sellerId);
+
+    @Query("""
+        select a
+        from Auction a
+        join ItemCategory ic on ic.item = a
+        where ic.category.id = :categoryId
+    """)
+    List<Auction> findByCategoryId(@Param("categoryId") Long categoryId);
 
 
 }

@@ -1,5 +1,6 @@
 package org.example.trusttrade.item.repository;
 
+import org.example.trusttrade.item.domain.ItemCategory;
 import org.example.trusttrade.item.domain.products.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -33,6 +34,14 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     // 판매자(UUID)로 이 사람이 올린 상품만
     List<Product> findByUser_Id(UUID sellerId);
+
+    @Query("""
+        select p
+        from Product p
+        join ItemCategory ic on ic.item = p
+        where ic.category.id = :categoryId
+    """)
+    List<Product> findByCategoryId(@Param("categoryId") Long categoryId);
 
 
 }

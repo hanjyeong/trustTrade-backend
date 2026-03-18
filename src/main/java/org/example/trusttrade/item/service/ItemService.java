@@ -37,13 +37,10 @@ public class ItemService {
     // 카테고리로 물품 조회
     public List<ItemResponseDto> findByCategoryAndType(Long categoryId, String itemType) {
         ItemType requestedType = ItemType.from(itemType);
-        List<ItemCategory> itemCategories = itemCategoryRepository.findByCategory_Id(categoryId);
-
-        return itemCategories.stream()
-                .map(ItemCategory::getItem)
-                .filter(item -> ItemType.from(item.getItemType()) == requestedType)
-                .map(ItemResponseMapper::toResponse)
-                .toList();
+        return switch (requestedType) {
+            case PRODUCT -> mapToResponses(productRepository.findByCategoryId(categoryId));
+            case AUCTION -> mapToResponses(auctionRepository.findByCategoryId(categoryId));
+        };
     }
 
 
@@ -126,6 +123,12 @@ public class ItemService {
                     .map(ItemResponseDto::fromAuction)
                     .toList();
         };
+    }
+
+    private List<ItemResponseDto> mapToResponses(List<? extends Item> items) {
+        return items.stream()
+                .map(ItemResponseMapper::toResponse)
+                .toList();
     }
 }
 
