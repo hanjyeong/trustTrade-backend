@@ -45,7 +45,7 @@ public class ProductService {
         return products.stream()
                 .map(product -> ProductResponseDto.builder()
                         .item_id(product.getId())
-                        .sellerAccount(product.getUser().getUserAccount()) // 판매자명 대신 계정 사용
+                        .sellerAccount(product.getSeller().getUserAccount()) // 판매자명 대신 계정 사용
                         .title(product.getName())
                         .price(product.getProductPrice())
                         .latitude(product.getProductLocation().getLatitude())

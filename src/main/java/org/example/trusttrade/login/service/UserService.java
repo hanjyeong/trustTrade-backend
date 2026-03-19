@@ -115,7 +115,7 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
 
         // 아이디 또는 비밀번호가 일치하지 않는 경우
-        if (!user.getUserPw().equals(request.getPassword()) || !user.getUserAccount().equals(request.getAccount())) {
+        if (!user.getPassword().equals(request.getPassword()) || !user.getUserAccount().equals(request.getAccount())) {
             throw new IllegalArgumentException();
         }
     }

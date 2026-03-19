@@ -48,7 +48,7 @@ public class Auction extends Item {
         // 3) Auction 엔티티
         return Auction.builder()
                 // Item
-                .user(seller)
+                .seller(seller)
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .productLocation(loc)

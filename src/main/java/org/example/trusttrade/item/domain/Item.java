@@ -28,7 +28,7 @@ public class Item {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id", nullable = false)
-    private User user;
+    private User seller;
 
 
     @Column(name = "name", length = 20, nullable = false)
@@ -47,7 +47,7 @@ public class Item {
 
     public static Item fromDto(BasicItemDto dto,User seller,ProductLocation productLocation){
         return Item.builder()
-                .user(seller)
+                .seller(seller)
                 .name(dto.getTitle())
                 .description(dto.getDescription())
                 .productLocation(productLocation)

@@ -24,7 +24,7 @@ public class ItemImage {
     private Long id;
 
     @Column(name = "image")
-    private String image;
+    private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id",nullable = false)
@@ -43,7 +43,7 @@ public class ItemImage {
         return imageUrls.stream()
                 .limit(5) // 최대 5장
                 .map(url -> ItemImage.builder()
-                        .image(url)
+                        .imageUrl(url)
                         .item(item)
                         .savedTime(LocalDateTime.now())
                         .build())

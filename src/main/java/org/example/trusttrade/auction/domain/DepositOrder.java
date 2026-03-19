@@ -48,7 +48,7 @@ public class DepositOrder {
     private LocalDateTime createdAt;
     //업데이트시 자동 생성
     @LastModifiedDate
-    private LocalDateTime updateAt;
+    private LocalDateTime updatedAt;
 
     public enum Status{
         PENDING, DEPOSITED, REFUNDED, CANCELED

@@ -25,7 +25,7 @@ public class ItemResponseDto {
                 .itemId(p.getId())
                 .name(p.getName())
                 .description(p.getDescription())
-                .sellerAccount(p.getUser().getUserAccount())
+                .sellerAccount(p.getSeller().getUserAccount())
                 .price(p.getProductPrice())
                 .itemType("PRODUCT")
                 .build();
@@ -36,7 +36,7 @@ public class ItemResponseDto {
                 .itemId(a.getId())
                 .name(a.getName())
                 .description(a.getDescription())
-                .sellerAccount(a.getUser().getUserAccount())
+                .sellerAccount(a.getSeller().getUserAccount())
                 .price(a.getStartPrice())   // 시작가를 price로 사용
                 .itemType("AUCTION")
                 .build();

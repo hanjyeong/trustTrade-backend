@@ -43,7 +43,7 @@ public class AuctionResDto {
 
         return AuctionResDto.builder()
                 .id(auction.getId())
-                .user(auction.getUser() != null ? auction.getUser().getId() : null)
+                .user(auction.getSeller() != null ? auction.getSeller().getId() : null)
                 .name(auction.getName())
                 .description(auction.getDescription())
                 .createdTime(auction.getCreatedTime())

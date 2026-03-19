@@ -27,7 +27,7 @@ public class Bids {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bidder_id",nullable = false)
-    private User user;
+    private User bidder;
 
     @Column(name ="bid_price" ,nullable = false)
     private int bidPrice;
@@ -39,7 +39,7 @@ public class Bids {
     public static Bids create(Auction auction, User user, int bidPrice) {
         Bids bid = Bids.builder()
                 .auction(auction)
-                .user(user)
+                .bidder(user)
                 .bidPrice(bidPrice)
                 .build();
 

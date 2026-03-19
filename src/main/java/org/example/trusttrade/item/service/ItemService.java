@@ -102,10 +102,10 @@ public class ItemService {
 
     private List<ItemResponseDto> findItemsBySeller(UUID sellerId, ItemType itemType) {
         return switch (itemType) {
-            case PRODUCT -> productRepository.findByUser_Id(sellerId).stream()
+            case PRODUCT -> productRepository.findBySeller_Id(sellerId).stream()
                     .map(ItemResponseDto::fromProduct)
                     .toList();
-            case AUCTION -> auctionRepository.findByUser_Id(sellerId).stream()
+            case AUCTION -> auctionRepository.findBySeller_Id(sellerId).stream()
                     .map(ItemResponseDto::fromAuction)
                     .toList();
         };

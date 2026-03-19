@@ -61,7 +61,7 @@ public class AuctionItemDto extends AbstractItemImageDto {
                 auction.getId(),
                 auction.getName(),
                 auction.getDescription(),
-                auction.getUser().getId(),
+                auction.getSeller().getId(),
                 Collections.emptyList(),
                 auction.getStartPrice(),
                 auction.getBidUnit(),

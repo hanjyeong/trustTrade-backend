@@ -55,7 +55,7 @@ public class DepositOrderService {
         User seller = userRepository.findById(request.getSellerId())
                 .orElseThrow(() -> new EntityNotFoundException("Seller not found with id: " + request.getSellerId()));
 
-        if(!auction.getUser().getId().equals(seller.getId())) {
+        if(!auction.getSeller().getId().equals(seller.getId())) {
             throw new IllegalArgumentException("seller does not match the auction owner.");
         }
         DepositOrder depositOrder = DepositOrder.create(auction, bidder, seller);

@@ -41,7 +41,7 @@ public class ChatService {
                 .senderId(message.getSenderId())
                 .content(message.getContent())
                 .timestamp(message.getTimestamp())
-                .is_read(message.isRead())
+                .isRead(message.isRead())
                 .build();
         chatMessageRepository.save(entity);
     }

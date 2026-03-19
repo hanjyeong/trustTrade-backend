@@ -34,7 +34,7 @@ public class Product extends Item {
         // 2) Product 객체 생성
         return Product.builder()
                 // Item 필드
-                .user(seller)
+                .seller(seller)
                 .name(dto.getTitle())
                 .description(dto.getDescription())
                 .productLocation(loc)

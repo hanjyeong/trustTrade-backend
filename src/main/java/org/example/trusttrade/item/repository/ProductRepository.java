@@ -20,20 +20,20 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "sin(radians(:lat)) * sin(radians(p.productLocation.latitude)))) <= 5")
     List<Product> findNearby(@Param("lat") double lat, @Param("lng") double lng);
 
-    @Query("SELECT p FROM Product p WHERE p.user.id = :sellerId")
+    @Query("SELECT p FROM Product p WHERE p.seller.id = :sellerId")
     List<Product> getProductBySellerId(@Param("sellerId") UUID sellerId);
 
     @Query("""
         select p
         from Product p
-        join fetch p.user u
+        join fetch p.seller u
         where lower(p.name) like lower(concat('%', :title, '%'))
     """)
     List<Product> findByTitleContainingWithSeller(@Param("title") String title);
 
 
     // 판매자(UUID)로 이 사람이 올린 상품만
-    List<Product> findByUser_Id(UUID sellerId);
+    List<Product> findBySeller_Id(UUID sellerId);
 
     @Query("""
         select p

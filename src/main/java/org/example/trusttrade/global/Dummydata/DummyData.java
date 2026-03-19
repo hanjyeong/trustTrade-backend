@@ -122,7 +122,7 @@ public class DummyData {
         for (int i = 1; i <= 3; i++) {
             ProductLocation loc = locations.get(i - 1);
             Product product = Product.builder()
-                    .user(generalUser)
+                    .seller(generalUser)
                     .name("일반 상품 " + i)
                     .description("일반 사용자가 등록한 상품 " + i)
                     .productLocation(loc)
@@ -135,12 +135,12 @@ public class DummyData {
             List<ItemImage> images = List.of(
                     ItemImage.builder()
                             .item(product)
-                            .image("https://example.com/img" + (2 * i - 1) + ".jpg")
+                            .imageUrl("https://example.com/img" + (2 * i - 1) + ".jpg")
                             .savedTime(LocalDateTime.now())
                             .build(),
                     ItemImage.builder()
                             .item(product)
-                            .image("https://example.com/img" + (2 * i) + ".jpg")
+                            .imageUrl("https://example.com/img" + (2 * i) + ".jpg")
                             .savedTime(LocalDateTime.now())
                             .build()
             );
@@ -158,7 +158,7 @@ public class DummyData {
         // =========================
         for (int i = 1; i <= 2; i++) {
             Product businessProduct = Product.builder()
-                    .user(businessUser)  // ← 이게 포인트
+                    .seller(businessUser)  // ← 이게 포인트
                     .name("비즈니스 상품 " + i)
                     .description("businessuser가 등록한 일반 상품 " + i)
                     .productLocation(ProductLocation.builder()
@@ -175,12 +175,12 @@ public class DummyData {
             itemImageRepository.saveAll(List.of(
                     ItemImage.builder()
                             .item(businessProduct)
-                            .image("https://example.com/biz-prod-" + i + "-1.jpg")
+                            .imageUrl("https://example.com/biz-prod-" + i + "-1.jpg")
                             .savedTime(LocalDateTime.now())
                             .build(),
                     ItemImage.builder()
                             .item(businessProduct)
-                            .image("https://example.com/biz-prod-" + i + "-2.jpg")
+                            .imageUrl("https://example.com/biz-prod-" + i + "-2.jpg")
                             .savedTime(LocalDateTime.now())
                             .build()
             ));
@@ -220,7 +220,7 @@ public class DummyData {
         for (int i = 1; i <= 3; i++) {
             ProductLocation loc = auctionLocations.get(i - 1);
             Auction auction = Auction.builder()
-                    .user(business)
+                    .seller(business)
                     .name("경매 상품 " + i)
                     .description("비즈니스 사용자가 등록한 경매 상품 " + i)
                     .productLocation(loc)
@@ -235,12 +235,12 @@ public class DummyData {
             List<ItemImage> images = List.of(
                     ItemImage.builder()
                             .item(auction)
-                            .image("https://example.com/auction" + (2 * i - 1) + ".jpg")
+                            .imageUrl("https://example.com/auction" + (2 * i - 1) + ".jpg")
                             .savedTime(LocalDateTime.now())
                             .build(),
                     ItemImage.builder()
                             .item(auction)
-                            .image("https://example.com/auction" + (2 * i) + ".jpg")
+                            .imageUrl("https://example.com/auction" + (2 * i) + ".jpg")
                             .savedTime(LocalDateTime.now())
                             .build()
             );

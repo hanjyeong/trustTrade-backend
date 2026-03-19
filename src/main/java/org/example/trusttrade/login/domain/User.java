@@ -32,7 +32,7 @@ public class User {
     private String userAccount;
 
     @Column(name = "userPw")
-    private String userPw;
+    private String password;
 
     @Column(name = "email")
     private String email;
@@ -63,7 +63,7 @@ public class User {
     // 사용자 주소
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_location")
-    private ProductLocation user_location;
+    private ProductLocation userLocation;
 
     @Column(name = "rough_address", nullable = false)
     private String roughAddress;
@@ -80,10 +80,10 @@ public class User {
     public static User createUser(SignUpRequest request, ProductLocation userLocation) {
         return User.builder()
                 .userAccount(request.getAccount())
-                .userPw(request.getPassword())
+                .password(request.getPassword())
                 .email(request.getEmail())
                 .roughAddress(request.getRoughAddress())
-                .user_location(userLocation)
+                .userLocation(userLocation)
                 .role(Role.USER)
                 .memberType(MemberType.GENERAL)
                 .build();

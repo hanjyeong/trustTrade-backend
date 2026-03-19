@@ -57,7 +57,7 @@ public class AuctionService {
 
         for (Auction auction : expiredAuctions) {
             bidRepository.findTopByAuctionOrderByBidPriceDesc(auction)
-                    .ifPresent(bid -> auction.setWinner(bid.getUser()));
+                    .ifPresent(bid -> auction.setWinner(bid.getBidder()));
 
             auction.setAuctionStatus(AuctionStatus.CLOSED);
 

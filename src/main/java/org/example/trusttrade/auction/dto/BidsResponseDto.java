@@ -20,7 +20,7 @@ public class BidsResponseDto {
 
         return  BidsResponseDto.builder()
                 .id(bid.getId())
-                .bidderId(bid.getUser().getId())
+                .bidderId(bid.getBidder().getId())
                 .bidPrice(bid.getBidPrice())
                 .createdTime(bid.getCreatedTime())
                 .build();

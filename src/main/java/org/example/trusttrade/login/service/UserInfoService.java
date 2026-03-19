@@ -24,7 +24,7 @@ public class UserInfoService {
         return UserInfoResponse.builder()
                 .id(user.getId())
                 .userAccount(Optional.ofNullable(user.getUserAccount()).orElse(""))
-                .userPw(Optional.ofNullable(user.getUserPw()).orElse(""))
+                .userPw(Optional.ofNullable(user.getPassword()).orElse(""))
                 .email(Optional.ofNullable(user.getEmail()).orElse(""))
                 .profileImage(Optional.ofNullable(user.getProfileImage()).orElse(""))
                 .role(user.getRole())
