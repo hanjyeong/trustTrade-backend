@@ -1,4 +1,4 @@
-package org.example.trusttrade.business.dto;
+package org.example.trusttrade.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

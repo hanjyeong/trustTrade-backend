@@ -1,8 +1,8 @@
-package org.example.trusttrade.business.service;
+package org.example.trusttrade.user.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.trusttrade.business.dto.BusinessStatusRequest;
-import org.example.trusttrade.business.dto.BusinessStatusResponse;
+import org.example.trusttrade.user.dto.BusinessStatusRequest;
+import org.example.trusttrade.user.dto.BusinessStatusResponse;
 import org.example.trusttrade.login.domain.User;
 import org.example.trusttrade.login.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;

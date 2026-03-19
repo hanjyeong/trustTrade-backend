@@ -1,7 +1,7 @@
-package org.example.trusttrade.business.controller;
+package org.example.trusttrade.user.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.trusttrade.business.service.BusinessVerifyService;
+import org.example.trusttrade.user.service.BusinessVerifyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

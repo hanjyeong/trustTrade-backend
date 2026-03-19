@@ -7,7 +7,7 @@ import org.example.trusttrade.global.error.AddressNotFoundException;
 import org.example.trusttrade.global.error.NotAllowUserType;
 import org.example.trusttrade.item.domain.products.ProductLocation;
 import org.example.trusttrade.item.dto.request.GeoPoint;
-import org.example.trusttrade.item.dto.request.LogInRequest;
+import org.example.trusttrade.user.dto.LogInRequest;
 import org.example.trusttrade.item.repository.ProductLocationRepository;
 import org.example.trusttrade.login.dto.SignUpRequest;
 import org.example.trusttrade.global.service.KakaoAddressSearchService;

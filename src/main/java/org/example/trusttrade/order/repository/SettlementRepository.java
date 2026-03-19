@@ -1,6 +1,6 @@
-package org.example.trusttrade.global.repository;
+package org.example.trusttrade.order.repository;
 
-import org.example.trusttrade.global.domain.Settlement;
+import org.example.trusttrade.order.domain.Settlement;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.UUID;

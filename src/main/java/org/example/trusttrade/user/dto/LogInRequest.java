@@ -1,4 +1,4 @@
-package org.example.trusttrade.item.dto.request;
+package org.example.trusttrade.user.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

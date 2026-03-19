@@ -1,4 +1,4 @@
-package org.example.trusttrade.item.controller;
+package org.example.trusttrade.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

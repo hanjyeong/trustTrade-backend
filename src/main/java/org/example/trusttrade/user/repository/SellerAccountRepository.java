@@ -1,9 +1,9 @@
-package org.example.trusttrade.global.repository;
+package org.example.trusttrade.user.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 import java.util.UUID;
-import org.example.trusttrade.global.domain.SellerAccount;
+import org.example.trusttrade.user.domain.SellerAccount;
 
 public interface SellerAccountRepository extends JpaRepository<SellerAccount, Long> {
 

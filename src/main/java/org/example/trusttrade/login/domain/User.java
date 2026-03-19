@@ -6,8 +6,8 @@ import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import org.example.trusttrade.global.domain.SellerAccount;
-import org.example.trusttrade.global.domain.Settlement;
+import org.example.trusttrade.user.domain.SellerAccount;
+import org.example.trusttrade.order.domain.Settlement;
 import org.example.trusttrade.item.domain.products.ProductLocation;
 import org.example.trusttrade.login.dto.SignUpRequest;
 

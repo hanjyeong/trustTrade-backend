@@ -1,4 +1,4 @@
-package org.example.trusttrade.business.dto;
+package org.example.trusttrade.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

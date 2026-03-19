@@ -1,7 +1,7 @@
 package org.example.trusttrade.login.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.trusttrade.item.dto.request.LogInRequest;
+import org.example.trusttrade.user.dto.LogInRequest;
 import org.example.trusttrade.login.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

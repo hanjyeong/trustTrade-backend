@@ -1,4 +1,4 @@
-package org.example.trusttrade.global.service;
+package org.example.trusttrade.user.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -7,9 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.example.trusttrade.global.domain.SellerAccount;
+import org.example.trusttrade.user.domain.SellerAccount;
 import org.example.trusttrade.login.domain.User;
-import org.example.trusttrade.global.repository.SellerAccountRepository;
+import org.example.trusttrade.user.repository.SellerAccountRepository;
 import org.example.trusttrade.login.repository.UserRepository;
 
 @Service
